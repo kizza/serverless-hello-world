@@ -37,6 +37,7 @@ custom:
 
 provider:
   name: aws
+  profile: serverless-admin
   runtime: nodejs12.x
 
 # you can overwrite defaults here
