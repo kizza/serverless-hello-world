@@ -12,6 +12,7 @@
     "serverless": "^1.66.0"
   },
   "devDependencies": {
-    "aws": "^0.0.3-2"
+    "aws": "^0.0.3-2",
+    "serverless-localstack": "^0.4.24"
   }
 }

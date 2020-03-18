@@ -20,6 +20,19 @@ service: serverless-hello-world
 # Check out our docs for more details
 # frameworkVersion: "=X.X.X"
 
+plugins:
+  - serverless-localstack
+
+custom:
+  bucket: hello-world
+  localstack:
+    stages:
+      - local
+    host: http://localhost
+    endpointFile: .localstack/endpoints.json
+    lambda:
+      mountCode: True
+
 provider:
   name: aws
   runtime: nodejs12.x
