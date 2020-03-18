@@ -21,6 +21,7 @@ service: serverless-hello-world
 # frameworkVersion: "=X.X.X"
 
 plugins:
+  - serverless-webpack
   - serverless-localstack
   - serverless-offline
 
@@ -74,6 +75,11 @@ provider:
 functions:
   hello:
     handler: handler.hello
+    events:
+      - http:
+          path: /hello-world
+          method: get
+
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
