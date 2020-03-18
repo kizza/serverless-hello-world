@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+
+#
+# Helpers
+#
+
+YELLOW=$(tput setaf 3)
+GREEN=$(tput setaf 2)
+RESET=$(tput sgr0)
+
+green() {
+  echo "${GREEN}$1${RESET}"
+}
+
+yellow() {
+  echo "${YELLOW}$1${RESET}"
+}
+
+wait_for_localstack() {
+  until docker-compose logs --no-color | grep "\| Ready\." -q -m 1
+  do
+    if [ -z "$ONCE" ]; then
+      yellow "Waiting for localstack services..."
+      ONCE=true
+    fi
+    sleep 1
+  done
+  green "✓ Localstack ready!"
+}
+
+#
+# Run local
+#
+
+green "Booting localstack (docker-compose)"
+docker-compose up -d
+
+wait_for_localstack
+
+green "Bootstrapping localstack (aws)"
+aws --endpoint-url=http://localhost:4572 s3 mb s3://hello-world
+
+green "Starting serverless offline"
+yarn serverless offline start --stage local --env local
