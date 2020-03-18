@@ -74,7 +74,7 @@ provider:
 
 functions:
   hello:
-    handler: handler.hello
+    handler: src/functions/hello.world
     events:
       - http:
           path: /hello-world
